@@ -2,7 +2,7 @@ import React from 'react'
 import { ResponsivePie } from '@nivo/pie'
 import { Subheading } from '../typography'
 
-export const PieChart = ({ title = '', data, height = 500 }) => {
+export const PieChart = ({ title = '', data, height = 500, ...props }) => {
   if (data.length === 0) return 'No data'
   return (
     <div style={{
@@ -19,11 +19,13 @@ export const PieChart = ({ title = '', data, height = 500 }) => {
         colors={{ scheme: 'red_blue' }}
         borderWidth={ 1 }
         borderColor={{ from: 'color', modifiers: [ [ 'darker', 0.2 ] ] }}
-        radialLabelsSkipAngle={10}
         radialLabelsTextColor="#333333"
         radialLabelsLinkColor={{ from: 'color' }}
+        radialLabelsLinkDiagonalLength={ 50 }
         sliceLabelsSkipAngle={ 10 }
+        radialLabelsSkipAngle={ 10 }
         sliceLabelsTextColor="#333333"
+        { ...props }
       />
     </div>
   )

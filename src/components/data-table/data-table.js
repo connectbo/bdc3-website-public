@@ -186,7 +186,7 @@ export const DataTable = ({ columns, data, ...props }) => {
         &nbsp;<IconButton onClick={ handleToggleFullScreen }>{ fullscreen ? <CloseIcon size={ 24 } fill="var(--color-white)" /> : <FullscreenIcon size={ 24 } fill="var(--color-white)" /> }</IconButton>
       </CardHeader>
 
-      <em>Note: this is still very much a work in progress.</em>
+      <em style={{ margin: '1rem auto' }}>Note: this is still very much a work in progress.</em>
 
       <CardBody style={{ overflowY: 'auto', padding: 0, flex: 1, position: 'relative' }}>
         <details>
@@ -194,8 +194,9 @@ export const DataTable = ({ columns, data, ...props }) => {
           <select value={ grouping } onChange={ handleGroupingChange } style={{ margin: '2rem' }}>
             { columns.filter(column => column.groupable).map(column => <option key={ `option-${ column.selector }` } value={ column.selector }>{ column.name }</option>) }
           </select>
-          <PieChart title={ `Studies grouped by ${ columns.find(column => column.selector === grouping).name }`} data={ groupCounts } height={ 700 } />
+          <PieChart title={ `Studies grouped by ${ columns.find(column => column.selector === grouping).name }`} data={ groupCounts } height={ fullscreen ? 800 : 500 } radialLabelsSkipAngle={ fullscreen ? 4 : 10 }/>
         </details>
+        
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <Stat name="Studies" value={ filteredStudies.length } />
           <Stat name="Variables" value={ variablesCount } />
