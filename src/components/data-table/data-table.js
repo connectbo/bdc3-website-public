@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 import ReactDataTable from 'react-data-table-component'
+import styled from 'styled-components'
 import { Card, CardHeader, CardBody, CardFooter } from '../card'
 import { TextInput } from '../form'
 import { Button, IconButton } from '../buttons'
-import { BarChart, NetworkChart, PieChart } from '../charts'
+import { ChartTooltip, PieChart } from '../charts'
 import { Stat } from './stat'
 import { downloadCSV } from '../../utils'
 import { BackspaceIcon, CloseIcon, FullscreenIcon } from '../icons'
@@ -122,6 +123,12 @@ export const DataTable = ({ columns, data, ...props }) => {
     }
   }, [types, consents])
 
+  /**
+   * Returns boolean indicating whether the given object, obj has obj[key] = value
+   * @param {object} object whose keys are to be checked
+   * @param key {string} property in object to check
+   * @param value {object} value to compare to object.property
+  */
   const isFiltered = (obj, key, value = '') => obj[key] && obj[key].toLowerCase().includes(value.toLowerCase())
 
   useEffect(() => {
@@ -203,6 +210,14 @@ export const DataTable = ({ columns, data, ...props }) => {
             data={ groupCounts }
             height={ fullscreen ? 800 : 500 }
             radialLabelsSkipAngle={ fullscreen ? 4 : 10 }
+            tooltip={
+              event => (
+                <ChartTooltip
+                  datum={ event.datum }
+                  grouping={ grouping.replace(/_/g, ' ') }
+                />
+              )
+            }
           />
         </details>
         
