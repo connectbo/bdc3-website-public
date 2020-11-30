@@ -220,6 +220,8 @@ export const DataTable = ({ columns, data, ...props }) => {
             }
           />
         </details>
+
+        <br /><br /><br /><br />
         
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <Stat name="Studies" value={ filteredStudies.length } />
