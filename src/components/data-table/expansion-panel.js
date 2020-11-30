@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   padding: 1rem;
   background-color: #eee;
   border-left: 0.5rem solid var(--color-lightgrey);
+  font-size: 80%;
 `
 
 const LIST_DELIMITER = ' ; '
