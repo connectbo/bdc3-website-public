@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import { Card, CardHeader, CardBody, CardFooter } from '../card'
 import { TextInput } from '../form'
 import { Button, IconButton } from '../buttons'
+import { PieChartIcon } from '../icons'
 import { ChartTooltip, PieChart } from '../charts'
 import { Stat } from './stat'
 import { downloadCSV } from '../../utils'
@@ -61,6 +62,7 @@ export const DataTable = ({ columns, data, ...props }) => {
   const [types, setTypes] = useState([])
   const [consents, setConsents] = useState([])
   const [links, setLinks] = useState([])
+  const [pieChartVisible, setPieChartVisible] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
   // filter state is maintained in this object,
   // whose properties are column.selectors
@@ -160,9 +162,9 @@ export const DataTable = ({ columns, data, ...props }) => {
     setFilters(f)
   }
 
-  const handleToggleFullScreen = () => {
-    setFullscreen(!fullscreen)
-  }
+  const handleToggleFullScreen = () => setFullscreen(!fullscreen)
+
+  const handleTogglePieChart = () => setPieChartVisible(!pieChartVisible)
 
   const fullscreenStyle = {
     position: 'fixed',
@@ -190,36 +192,42 @@ export const DataTable = ({ columns, data, ...props }) => {
   return (
     <Card style={ fullscreen ? fullscreenStyle : null }>
       <CardHeader style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        &nbsp;<IconButton onClick={ handleToggleFullScreen }>{ fullscreen ? <CloseIcon size={ 24 } fill="var(--color-white)" /> : <FullscreenIcon size={ 24 } fill="var(--color-white)" /> }</IconButton>
+        <IconButton onClick={ handleTogglePieChart } style={{ transform: 'translateX(1rem)' }}>
+          { pieChartVisible ? <PieChartIcon size={ 24 } fill="var(--color-white)" /> : <PieChartIcon size={ 24 } fill="var(--color-crimson-dark)" /> }
+        </IconButton>
+        <IconButton onClick={ handleToggleFullScreen } style={{ transform: 'translateX(1rem)' }}>
+          { fullscreen ? <CloseIcon size={ 24 } fill="var(--color-white)" /> : <FullscreenIcon size={ 24 } fill="var(--color-white)" /> }
+        </IconButton>
       </CardHeader>
 
       <em style={{ margin: '1rem auto' }}>Note: this is still very much a work in progress.</em>
 
       <CardBody style={{ overflowY: 'auto', padding: 0, flex: 1, position: 'relative' }}>
-        <details>
-          <summary style={{ cursor: 'pointer', backgroundColor: '#eee', padding: '1rem' }}>Pie</summary>
-          <PieChart
-            title={
-              <div>
-                Studies grouped by
-                <select value={ grouping } onChange={ handleGroupingChange } style={{ margin: '0.5rem' }}>
-                  { columns.filter(column => column.groupable).map(column => <option key={ `option-${ column.selector }` } value={ column.selector }>{ column.name }</option>) }
-                </select>
-              </div>
-            }
-            data={ groupCounts }
-            height={ fullscreen ? 800 : 500 }
-            radialLabelsSkipAngle={ fullscreen ? 4 : 10 }
-            tooltip={
-              event => (
-                <ChartTooltip
-                  datum={ event.datum }
-                  grouping={ grouping.replace(/_/g, ' ') }
-                />
-              )
-            }
-          />
-        </details>
+        {
+          pieChartVisible && (
+            <PieChart
+              title={
+                <Fragment>
+                  Studies grouped by
+                  <select value={ grouping } onChange={ handleGroupingChange } style={{ margin: '0.5rem' }}>
+                    { columns.filter(column => column.groupable).map(column => <option key={ `option-${ column.selector }` } value={ column.selector }>{ column.name }</option>) }
+                  </select>
+                </Fragment>
+              }
+              data={ groupCounts }
+              height={ fullscreen ? 800 : 500 }
+              radialLabelsSkipAngle={ fullscreen ? 4 : 10 }
+              tooltip={
+                event => (
+                  <ChartTooltip
+                    datum={ event.datum }
+                    grouping={ grouping.replace(/_/g, ' ') }
+                  />
+                )
+              }
+            />
+          )
+        }
 
         <br /><br /><br /><br />
         
