@@ -7,7 +7,7 @@ import { Button, IconButton } from '../buttons'
 import { PieChartIcon } from '../icons'
 import { ChartTooltip, PieChart } from '../charts'
 import { Stat } from './stat'
-import { downloadCSV } from '../../utils'
+import { downloadCSV, downloadJSON } from '../../utils'
 import { BackspaceIcon, CloseIcon, FullscreenIcon } from '../icons'
 
 //
@@ -51,7 +51,7 @@ const countObjectsByProperty = (objArray, property) => {
 
 //
 
-const ExportButton = ({ onExport }) => <Button small onClick={ e => onExport(e.target.value) }>Download Studies</Button>
+const DownloadButton = ({ onExport }) => <Button small onClick={ e => onExport(e.target.value) }>Download Studies</Button>
 
 export const DataTable = ({ columns, data, ...props }) => {
   const [query, setQuery] = useState('')
@@ -180,7 +180,7 @@ export const DataTable = ({ columns, data, ...props }) => {
       <Fragment>
         <TextInput id="search-by-study-name" type="text" placeholder="Filter by Study Name" aria-label="Study Name Search Input" value={ filters.Name } onChange={ handleFilterChange('Name') } />
         <IconButton type="button" onClick={ () => setFilters({ ...filters, Name: '' }) }><BackspaceIcon size={24} fill="var(--color-crimson)"/></IconButton>
-        <ExportButton onExport={ () => downloadCSV(filteredStudies) } />
+        <DownloadButton onExport={ () => downloadJSON(filteredStudies) } />
       </Fragment>
     )
   }, [query, filters, filteredStudies])
