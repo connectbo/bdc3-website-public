@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Card, CardHeader, CardBody, CardFooter } from '../card'
 import { TextInput } from '../form'
 import { Button, IconButton } from '../buttons'
-import { PieChartIcon } from '../icons'
+import { DownloadIcon, PieChartIcon } from '../icons'
 import { ChartTooltip, PieChart } from '../charts'
 import { Stat } from './stat'
 import { downloadCSV, downloadJSON } from '../../utils'
@@ -51,7 +51,16 @@ const countObjectsByProperty = (objArray, property) => {
 
 //
 
-const DownloadButton = ({ onExport }) => <Button small onClick={ e => onExport(e.target.value) }>Download Studies</Button>
+const DownloadButton = styled(Button)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 50%
+`
+
+const DownloadCSVButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="white" size={ 20 }/> CSV</DownloadButton>
+const DownloadJSONButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="white" size={ 20 }/> JSON</DownloadButton>
 
 export const DataTable = ({ columns, data, ...props }) => {
   const [query, setQuery] = useState('')
@@ -180,7 +189,9 @@ export const DataTable = ({ columns, data, ...props }) => {
       <Fragment>
         <TextInput id="search-by-study-name" type="text" placeholder="Filter by Study Name" aria-label="Study Name Search Input" value={ filters.Name } onChange={ handleFilterChange('Name') } />
         <IconButton type="button" onClick={ () => setFilters({ ...filters, Name: '' }) }><BackspaceIcon size={24} fill="var(--color-crimson)"/></IconButton>
-        <DownloadButton onExport={ () => downloadJSON(filteredStudies) } />
+        <DownloadCSVButton onExport={ () => downloadCSV(filteredStudies) } />
+        &nbsp;
+        <DownloadJSONButton onExport={ () => downloadJSON(filteredStudies) } />
       </Fragment>
     )
   }, [query, filters, filteredStudies])
