@@ -65,7 +65,7 @@ const DownloadJSONButton = ({ onExport }) => <DownloadButton small onClick={ e =
 export const DataTable = ({ columns, data, ...props }) => {
   const [query, setQuery] = useState('')
   const [filteredStudies, setFilteredStudies] = useState()
-  const [grouping, setGrouping] = useState('Primary_Research_Focus')
+  const [grouping, setGrouping] = useState(columns.filter(column => column.groupable)[0].selector)
   const [groupCounts, setGroupCounts] = useState([])
   const [variablesCount, setVariablesCount] = useState(0)
   const [types, setTypes] = useState([])
@@ -84,55 +84,11 @@ export const DataTable = ({ columns, data, ...props }) => {
     return f
   })
 
+  console.log(columns.filter(column => column.groupable))
+
   //
 
   useEffect(() => setFilteredStudies(data), [data])
-
-  // set types for network nodes
-  useEffect(() => {
-    if (filteredStudies) {
-      const bucket = []
-      filteredStudies.forEach(study => {
-        study.Type.forEach(t => {
-          if (!bucket.includes(t)) {
-            bucket.push(t)
-          }
-        })
-      })
-      setTypes(bucket)
-    }
-  }, [filteredStudies])
-
-  // set consent for network nodes
-  useEffect(() => {
-    if (filteredStudies) {
-      const bucket = []
-      filteredStudies.forEach(study => {
-        study.Consent_Short.forEach(t => {
-          if (!bucket.includes(t)) {
-            bucket.push(t)
-          }
-        })
-      })
-      setConsents(bucket)
-    }
-  }, [filteredStudies])
-
-  // set links for network
-  useEffect(() => {
-    if (filteredStudies) {
-      const bucket = []
-      filteredStudies.forEach(study => {
-        study.Type.forEach(t => {
-          bucket.push({ source: study.Accession, target: t, distance: 50 })
-        })
-        study.Consent_Short.forEach(t => {
-          bucket.push({ source: study.Accession, target: t, distance: 50 })
-        })
-      })
-      setLinks(bucket)
-    }
-  }, [types, consents])
 
   /**
    * Returns boolean indicating whether the given object, obj has obj[key] = value
@@ -228,14 +184,7 @@ export const DataTable = ({ columns, data, ...props }) => {
               data={ groupCounts }
               height={ fullscreen ? 800 : 500 }
               radialLabelsSkipAngle={ fullscreen ? 4 : 10 }
-              tooltip={
-                event => (
-                  <ChartTooltip
-                    datum={ event.datum }
-                    grouping={ grouping.replace(/_/g, ' ') }
-                  />
-                )
-              }
+              tooltip={ event => <ChartTooltip datum={ event.datum } grouping={ grouping.replace(/_/g, ' ') } /> }
             />
           )
         }
@@ -244,7 +193,7 @@ export const DataTable = ({ columns, data, ...props }) => {
         
         <div style={{ display: 'flex', justifyContent: 'space-around' }}>
           <Stat name="Studies" value={ filteredStudies.length } />
-          <Stat name="Variables" value={ variablesCount } />
+          { variablesCount ? <Stat name="Variables" value={ variablesCount } /> : undefined }
         </div>
       
         <ReactDataTable

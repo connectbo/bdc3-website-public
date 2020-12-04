@@ -18,7 +18,7 @@ const DbGapLink = ({ pht }) => {
   return <ExternalLink to={ `https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/dataset.cgi?study_id=phs000956.v4.p1&pht=${ digits }` }>{ pht }</ExternalLink>
 }
 
-export const ExpansionPanel = ({ columns, data }) => {
+export const ExpansionPanel = ({ data }) => {
   return (
     <Wrapper>
       <Subheading>
@@ -34,6 +34,24 @@ export const ExpansionPanel = ({ columns, data }) => {
       <strong>Study Consent:</strong> { data.Consent_Short.join(LIST_DELIMITER) }<br /><br />
       <strong>Type of Molecular Data Available:</strong> { data.Molecular_Data.join(LIST_DELIMITER) }<br /><br />
       <strong>Primary Data Dictionary Link:</strong> <DbGapLink pht={ data.Data_Dictionary_Link }/><br />
+    </Wrapper>
+  )
+}
+
+export const CovidExpansionPanel = ({ data }) => {
+  return (
+    <Wrapper>
+      <Subheading>
+        { data.Name }
+      </Subheading>
+      <hr />
+      <strong>Short Name:</strong> { data.Short_Name }<br /><br />
+      <strong>Study Description:</strong> { data.Description }<br /><br />
+      <strong>Study Type:</strong> { data.Type }<br /><br />
+      <strong>Study Link:</strong> { data.Study_Link }<br /><br />
+      <strong>Network:</strong> { data.Network }<br /><br />
+      <strong>Responsible Party:</strong> { data.Responsible_Party }<br /><br />
+      <strong>Status:</strong> { data.Status }<br />
     </Wrapper>
   )
 }
