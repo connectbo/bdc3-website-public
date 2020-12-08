@@ -40,13 +40,16 @@ const countObjectsByArrayProperty = (objArray, arrProperty) => {
 }
 
 const countObjectsByProperty = (objArray, property) => {
+  if (objArray.length === 0) {
+    return []
+  }
   if (typeof objArray[0][property] === 'string') {
     return countObjectsByStringProperty(objArray, property)
   }
   if (typeof objArray[0][property] === 'object') {
     return countObjectsByArrayProperty(objArray, property)
   }
-  return ({ })
+  return []
 }
 
 //
