@@ -1,13 +1,22 @@
 import React from 'react'
 import { ResponsivePie } from '@nivo/pie'
 import { Subheading } from '../typography'
+import { Alert } from '../alert'
 
 export const PieChart = ({ title = '', data, height = 500, ...props }) => {
-  if (data.length === 0) return 'No data'
+  if (data.length === 0) {
+    return (
+      <div style={{ width: '30%', margin: 'auto' }}>
+        <Alert type="warning" message="No data available for pie chart!" />
+      </div>
+    )
+  }
   return (
     <div style={{
       height: `${ height }px`,
       textAlign: 'center',
+      borderBottom: '1px solid var(--color-lightgrey)',
+      paddingBottom: '4rem'
     }}>
       { title && <Subheading center>{ title }</Subheading> }
       <ResponsivePie

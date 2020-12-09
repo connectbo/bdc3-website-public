@@ -66,14 +66,11 @@ const DownloadCSVButton = ({ onExport }) => <DownloadButton small onClick={ e =>
 const DownloadJSONButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="white" size={ 20 }/> JSON</DownloadButton>
 
 export const DataTable = ({ columns, data, ...props }) => {
-  const [query, setQuery] = useState('')
+  const [query, ] = useState('')
   const [filteredStudies, setFilteredStudies] = useState()
   const [grouping, setGrouping] = useState(columns.filter(column => column.groupable)[0].selector)
   const [groupCounts, setGroupCounts] = useState([])
   const [variablesCount, setVariablesCount] = useState(0)
-  const [types, setTypes] = useState([])
-  const [consents, setConsents] = useState([])
-  const [links, setLinks] = useState([])
   const [pieChartVisible, setPieChartVisible] = useState(false)
   const [fullscreen, setFullscreen] = useState(false)
   // filter state is maintained in this object,
@@ -86,8 +83,6 @@ export const DataTable = ({ columns, data, ...props }) => {
     keys.forEach(key => f[key] = '')
     return f
   })
-
-  console.log(columns.filter(column => column.groupable))
 
   //
 
@@ -170,8 +165,6 @@ export const DataTable = ({ columns, data, ...props }) => {
         </IconButton>
       </CardHeader>
 
-      <em style={{ margin: '1rem auto' }}>Note: this is still very much a work in progress.</em>
-
       <CardBody style={{ overflowY: 'auto', padding: 0, flex: 1, position: 'relative' }}>
         {
           pieChartVisible && (
@@ -185,7 +178,7 @@ export const DataTable = ({ columns, data, ...props }) => {
                 </Fragment>
               }
               data={ groupCounts }
-              height={ fullscreen ? 800 : 500 }
+              height={ fullscreen ? 900 : 600 }
               radialLabelsSkipAngle={ fullscreen ? 4 : 10 }
               tooltip={ event => <ChartTooltip datum={ event.datum } grouping={ grouping.replace(/_/g, ' ') } /> }
             />
