@@ -1,4 +1,4 @@
-function jsonToCsv(objArray) {
+function objectToCsv(objArray) {
   let csv = 'data:text/csv;charset=utf-8,'
   const columnDelimiter = ','
   const lineDelimiter = '\r\n'
@@ -16,7 +16,7 @@ function jsonToCsv(objArray) {
 }
 
 function downloadCSV(data, filename = 'studies-export.csv') {
-  const csv = jsonToCsv(data)
+  const csv = objectToCsv(data)
   const link = document.createElement('a')
   link.setAttribute('href', encodeURI(csv))
   link.setAttribute('download', filename)
