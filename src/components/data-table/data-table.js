@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import ReactDataTable from 'react-data-table-component'
 import styled from 'styled-components'
 import { Card, CardHeader, CardBody, CardFooter } from '../card'
@@ -56,18 +56,23 @@ const countObjectsByProperty = (objArray, property) => {
 
 const DownloadButton = styled(Button)`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  font-size: 50%
+  background-color: var(--color-blueberry);
+  // color: var(--color-crimson);
+  // border: 1px solid var(--color-crimson);
+  text-transform: none;
+  // padding: 0.25rem;
 `
 
-const DownloadCSVButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="white" size={ 20 }/> CSV</DownloadButton>
-const DownloadJSONButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="white" size={ 20 }/> JSON</DownloadButton>
+const DownloadCSVButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="var(--color-white)" size={ 16 }/> CSV</DownloadButton>
+const DownloadJSONButton = ({ onExport }) => <DownloadButton small onClick={ e => onExport(e.target.value) }><DownloadIcon fill="var(--color-white)" size={ 16 }/> JSON</DownloadButton>
 
 export const DataTable = ({ columns, data, ...props }) => {
   const [query, ] = useState('')
-  const [filteredStudies, setFilteredStudies] = useState()
+  const [filteredStudies, setFilteredStudies] = useState(data)
+  const [selectedStudies, setSelectedStudies] = useState([])
   const [grouping, setGrouping] = useState(columns.filter(column => column.groupable)[0].selector)
   const [groupCounts, setGroupCounts] = useState([])
   const [variablesCount, setVariablesCount] = useState(0)
@@ -83,10 +88,6 @@ export const DataTable = ({ columns, data, ...props }) => {
     keys.forEach(key => f[key] = '')
     return f
   })
-
-  //
-
-  useEffect(() => setFilteredStudies(data), [data])
 
   /**
    * Returns boolean indicating whether the given object, obj has obj[key] = value
@@ -138,17 +139,30 @@ export const DataTable = ({ columns, data, ...props }) => {
     zIndex: 99,
   }
 
-  const memoizedSubHeaderComponent = useMemo(() => {
+  const handleSelectionChange = useCallback(data => {
+    console.log(data.selectedRows)
+    setSelectedStudies(data.selectedRows)
+  }, [selectedStudies])
+
+  const memoizedSubheaderComponent = useMemo(() => {
     return (
       <Fragment>
         <TextInput id="search-by-study-name" type="text" placeholder="Filter by Study Name" aria-label="Study Name Search Input" value={ filters.Name } onChange={ handleFilterChange('Name') } />
         <IconButton type="button" onClick={ () => setFilters({ ...filters, Name: '' }) }><BackspaceIcon size={24} fill="var(--color-crimson)"/></IconButton>
-        <DownloadCSVButton onExport={ () => downloadCSV(filteredStudies) } />
-        &nbsp;
-        <DownloadJSONButton onExport={ () => downloadJSON(filteredStudies) } />
       </Fragment>
     )
   }, [query, filters, filteredStudies])
+
+  const memoizedActionsComponent = useMemo(() => {
+    return (
+      <Fragment>
+        Download selected studies &nbsp;
+        <DownloadCSVButton onExport={ () => downloadCSV(selectedStudies) } />
+        &nbsp;
+        <DownloadJSONButton onExport={ () => downloadJSON(selectedStudies) } />
+      </Fragment>
+    )
+  }, [selectedStudies])
 
   //
 
@@ -185,9 +199,7 @@ export const DataTable = ({ columns, data, ...props }) => {
           )
         }
 
-        <br /><br /><br /><br />
-        
-        <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: '2rem 0' }}>
           <Stat name="Studies" value={ filteredStudies.length } />
           { variablesCount ? <Stat name="Variables" value={ variablesCount } /> : undefined }
         </div>
@@ -196,7 +208,13 @@ export const DataTable = ({ columns, data, ...props }) => {
           data={ filteredStudies }
           columns={ columns }
           subHeader
-          subHeaderComponent={ memoizedSubHeaderComponent }
+          subHeaderComponent={ memoizedSubheaderComponent }
+          selectableRows={ true }
+          selectableRowsHighlight={ true }
+          onSelectedRowsChange={ handleSelectionChange }
+          fixedHeader
+          contextMessage={{ singular: 'study', plural: 'studies', message: 'selected' }}
+          contextActions={ memoizedActionsComponent }
           { ...props }
         />
       </CardBody>
