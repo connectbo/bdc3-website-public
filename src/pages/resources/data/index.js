@@ -1,15 +1,15 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
-import { SEO } from '../../components/seo'
-import { PageContent } from '../../components/layout'
-import { Title, Heading, Subheading, Paragraph } from '../../components/typography'
-import { BulletedList, ListItem } from '../../components/list'
-import { Button, ButtonLink } from '../../components/buttons'
-import { ExternalLink } from '../../components/link'
+import { SEO } from '../../../components/seo'
+import { PageContent } from '../../../components/layout'
+import { Title, Heading, Subheading, Paragraph } from '../../../components/typography'
+import { BulletedList, ListItem } from '../../../components/list'
+import { Button, ButtonLink } from '../../../components/buttons'
+import { ExternalLink } from '../../../components/link'
 import { Visible } from 'react-grid-system'
-import { DataAccess } from '../../components/data-access'
-import { DownloadIcon, MagnifyingGlassIcon } from '../../components/icons'
+import { DataAccess } from '../../../components/data-access'
+import { DownloadIcon, MagnifyingGlassIcon } from '../../../components/icons'
 
 const DataPage = ({ data, location }) => {
     const { dataBucketsGraphic, dataBucketsGraphicMobile } = data
@@ -50,7 +50,7 @@ const DataPage = ({ data, location }) => {
                 <br/>
                 
                 <Paragraph center>
-                    <ButtonLink light download to="/resources/studies" style={{ margin: '1rem', display: 'inline-flex', alignItems: 'center' }}>
+                    <ButtonLink light download to="/resources/data/studies" style={{ margin: '1rem', display: 'inline-flex', alignItems: 'center' }}>
                         Explore Studies &nbsp;&nbsp; <MagnifyingGlassIcon fill="var(--color-crimson)" size={ 24 } />
                     </ButtonLink>
                     <Button light as="a" target="_blank" rel="noopener noreferrer"

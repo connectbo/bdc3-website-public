@@ -1,9 +1,9 @@
 import React from 'react'
-import { SEO } from '../../components/seo'
-import { PageContent } from '../../components/layout'
-import { Title, Paragraph } from '../../components/typography'
-import { DataTable, ExpansionPanel } from '../../components/data-table'
-import { useStudies } from '../../hooks'
+import { SEO } from '../../../components/seo'
+import { PageContent } from '../../../components/layout'
+import { Title, Paragraph } from '../../../components/typography'
+import { DataTable, ExpansionPanel } from '../../../components/data-table'
+import { useStudies } from '../../../hooks'
 
 const StudiesPage = () => {
   const { studies, studiesColumns } = useStudies()
