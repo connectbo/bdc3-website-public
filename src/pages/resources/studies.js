@@ -1,7 +1,7 @@
 import React from 'react'
 import { SEO } from '../../components/seo'
 import { PageContent } from '../../components/layout'
-import { Title } from '../../components/typography'
+import { Title, Paragraph } from '../../components/typography'
 import { DataTable, ExpansionPanel } from '../../components/data-table'
 import { useStudies } from '../../hooks'
 
@@ -19,6 +19,10 @@ const StudiesPage = () => {
       <Title>BioData Catalyst Studies</Title>
 
       <br/>
+
+      <Paragraph>
+        The filterable data table below provides metadata on all studies available in BioData Catalyst.
+      </Paragraph>
 
       {
         studies && studiesColumns && (
