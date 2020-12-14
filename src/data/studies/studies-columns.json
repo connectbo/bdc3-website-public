@@ -45,13 +45,6 @@
     "groupable": true
   },
   {
-    "name": "Number of Variables",
-    "selector": "Number_of_Variables",
-    "type": "number",
-    "omit": true,
-    "groupable": false
-  },
-  {
     "name": "dbGaP Listed Variable",
     "selector": "dbGaP_Listed_Variable",
     "type": "array",
@@ -82,13 +75,6 @@
   {
     "name": "Consent",
     "selector": "Consent_Short",
-    "type": "array",
-    "omit": true,
-    "groupable": true
-  },
-  {
-    "name": "Molecular Data Available",
-    "selector": "Molecular_Data",
     "type": "array",
     "omit": true,
     "groupable": true

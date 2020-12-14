@@ -27,12 +27,10 @@ export const ExpansionPanel = ({ data }) => {
       <hr />
       <strong>Study Description:</strong> { data.Description }<br /><br />
       <strong>Primary Research Focus:</strong> { data.Primary_Research_Focus }<br /><br />
-      <strong>Total Number of Variables:</strong> { data.Number_of_Variables }<br /><br />
       <strong>dbGaP Listed Variable:</strong> { data.dbGaP_Listed_Variable.join(LIST_DELIMITER) }<br /><br />
       <strong>Study Type:</strong> { data.Type.join(LIST_DELIMITER) }<br /><br />
       <strong>Study-Reported Population(s):</strong> { data.Populations.join(LIST_DELIMITER) }<br /><br />
       <strong>Study Consent:</strong> { data.Consent_Short.join(LIST_DELIMITER) }<br /><br />
-      <strong>Type of Molecular Data Available:</strong> { data.Molecular_Data.join(LIST_DELIMITER) }<br /><br />
       <strong>Primary Data Dictionary Link:</strong> <DbGapLink pht={ data.Data_Dictionary_Link }/><br />
     </Wrapper>
   )

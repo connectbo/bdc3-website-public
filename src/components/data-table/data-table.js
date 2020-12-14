@@ -199,11 +199,6 @@ export const DataTable = ({ columns, data, ...props }) => {
           )
         }
 
-        <div style={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center', margin: '2rem 0' }}>
-          <Stat name="Studies" value={ filteredStudies.length } />
-          { variablesCount ? <Stat name="Variables" value={ variablesCount } /> : undefined }
-        </div>
-      
         <ReactDataTable
           data={ filteredStudies }
           columns={ columns }
