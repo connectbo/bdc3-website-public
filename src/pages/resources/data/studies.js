@@ -1,13 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SEO } from '../../../components/seo'
 import { PageContent } from '../../../components/layout'
 import { Title, Paragraph } from '../../../components/typography'
+import { ExternalLink } from '../../../components/link'
 import { DataTable, ExpansionPanel } from '../../../components/data-table'
 import { useStudies } from '../../../hooks'
 
 const StudiesPage = () => {
   const { studies, studiesColumns } = useStudies()
-  
+  const [modifiedStudiesColumns, setModifiedStudiesColumns] = useState()
+
+  useEffect(() => {
+    if (studiesColumns.length) {
+      const columnsCopy = [...studiesColumns]
+      const index = columnsCopy.findIndex(column => column.selector === 'Name')
+      if (index > -1) {
+        columnsCopy[index].cell = row => <ExternalLink to={ `https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=${ row.Accession }` }>{ row.Name }</ExternalLink>
+      }
+      setModifiedStudiesColumns([ ...columnsCopy])
+    }
+  }, [])
+
+
   return (
     <PageContent width="95%" maxWidth="1200px" center gutters style={{ position: 'relative' }}>
       <SEO
@@ -25,13 +39,12 @@ const StudiesPage = () => {
       </Paragraph>
 
       {
-        studies && studiesColumns && (
+        studies && modifiedStudiesColumns && (
           <DataTable
-            columns={ studiesColumns }
+            columns={ modifiedStudiesColumns }
             data={ studies }
             expandableRows
             expandableRowsComponent={ <ExpansionPanel columns={ studiesColumns } /> }
-            expandOnRowClicked
             highlightOnHover
             dense
           />
