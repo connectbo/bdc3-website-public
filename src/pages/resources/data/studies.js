@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
 import { SEO } from '../../../components/seo'
 import { PageContent } from '../../../components/layout'
 import { Title, Paragraph } from '../../../components/typography'
@@ -6,20 +7,30 @@ import { ExternalLink } from '../../../components/link'
 import { DataTable, ExpansionPanel } from '../../../components/data-table'
 import { useStudies } from '../../../hooks'
 
+const CustomCell = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`
+
 const StudiesPage = () => {
   const { studies, studiesColumns } = useStudies()
   const [modifiedStudiesColumns, setModifiedStudiesColumns] = useState()
 
   useEffect(() => {
+    const columnsCopy = [...studiesColumns]
     if (studiesColumns.length) {
-      const columnsCopy = [...studiesColumns]
       const index = columnsCopy.findIndex(column => column.selector === 'Name')
       if (index > -1) {
-        columnsCopy[index].cell = row => <ExternalLink to={ `https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=${ row.Accession }` }>{ row.Name }</ExternalLink>
+        columnsCopy[index].cell = row => (
+          <CustomCell>
+            <ExternalLink to={ `https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=${ row.Accession }` }>{ row.Name }</ExternalLink>
+          </CustomCell>
+        )
       }
       setModifiedStudiesColumns([ ...columnsCopy])
     }
-  }, [])
+  }, [studiesColumns.length])
 
 
   return (
