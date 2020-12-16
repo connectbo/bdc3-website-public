@@ -22,7 +22,7 @@ export const ExpansionPanel = ({ data }) => {
   return (
     <Wrapper>
       <Subheading>
-        { data.Name } ({ data.Accession })
+        <ExternalLink to={ `https://www.ncbi.nlm.nih.gov/projects/gap/cgi-bin/study.cgi?study_id=${ data.Accession }` }>{ data.Name } ({ data.Accession })</ExternalLink>
       </Subheading>
       <hr />
       <strong>Study Description:</strong> { data.Description }<br /><br />
