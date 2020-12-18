@@ -124,18 +124,15 @@ const DataPage = ({ data, location }) => {
       <br/>
 
       <section>
-        <Heading>Data Management Strategy</Heading>
+        <Heading>Adding and Managing Hosted Data</Heading>
 
         <Paragraph>
-           The BioData Catalyst Data Management Strategy describes the approach taken by the BioData Catalyst Consortium
-           to manage data that the BioData Catalyst Ecosystem is expected to acquire or otherwise interact with.
-           A component of the BioData Catalyst mission is to provide FAIR data to the NHLBI research community.
+          A component of the BioData Catalyst mission is to provide findable, accessible, interoperable, and reusable (FAIR) data to support the NHLBI research community.
+          One way in which the BioData Catalyst Consortium is committed to achieving that mission is to successfully manage data already in the ecosystem and make available additional hosted data.
         </Paragraph>
 
         <Paragraph>
-          Data management for the BioData Catalyst Ecosystem will continue to evolve to address new challenges as the Ecosystem matures.
-          As such, the below documents are <em>evolving</em> and will provide <em>current</em> and <em>forward looking</em> practices,
-          with the goal of standardizing and conforming to best practices in data management.
+          The following documents, which provide current and forward-looking practices, describe the Consortium’s approach to adding and managing hosted data.
         </Paragraph>
 
         <BulletedList>
@@ -143,6 +140,10 @@ const DataPage = ({ data, location }) => {
           <ListItem primary="Data Generators Guidance – Coming Soon" />
           <ListItem primary="Data Release Management Process – Coming Soon" />
         </BulletedList>
+
+        <Paragraph>
+          The BioData Catalyst Consortium will update these documents to reflect maturities of the ecosystem and best practices in data management.
+        </Paragraph>
       </section>
 
       <br/>
