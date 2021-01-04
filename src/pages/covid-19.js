@@ -1,32 +1,37 @@
 import React from 'react'
+import styled from 'styled-components'
 import { SEO } from '../components/seo'
 import { PageContent } from '../components/layout'
 import { Title, Heading, Paragraph } from '../components/typography'
 import { List, ListItem } from '../components/list'
+import { DataTable, CovidExpansionPanel } from '../components/data-table'
+import { useStudies } from '../hooks'
 import { ExternalLink } from '../components/link'
 
 const Covid19Page = () => {
-    return (
-  <PageContent width="95%" maxWidth="1200px" center gutters>
+  const { covidStudies, covidStudiesColumns } = useStudies()
+  
+  return (
+    <PageContent width="95%" maxWidth="1200px" center gutters>
       <SEO
-    title="COVID-19"
-    description=""
-    keywords=""
+        title="COVID-19"
+        description=""
+        keywords=""
       />
       
       <Title>About BioData Catalyst COVID-19 Data</Title>
 
       <Paragraph>
-    NHLBI's response to the public health threat posed by COVID-19 includes
-    a <ExternalLink to="https://www.nhlbi.nih.gov/directors-messages/coronavirus-covid-19-nhlbi-response">multi-pronged research strategy</ExternalLink>,
-    which includes translational research, clinical trials, clinical epidemiology, and population science.
-    The NHLBI will also leverage its cyberinfrastructure, namely the BioData Catalyst ecosystem,
-    to help coordinate various data management needs among many of the COVID-19 efforts.
+        NHLBI's response to the public health threat posed by COVID-19 includes
+        a <ExternalLink to="https://www.nhlbi.nih.gov/directors-messages/coronavirus-covid-19-nhlbi-response">multi-pronged research strategy</ExternalLink>,
+        which includes translational research, clinical trials, clinical epidemiology, and population science.
+        The NHLBI will also leverage its cyberinfrastructure, namely the BioData Catalyst ecosystem,
+        to help coordinate various data management needs among many of the COVID-19 efforts.
       </Paragraph>
 
       <Paragraph>
-    BioData Catalyst is supporting data aggregation, rapid and broad access, and computation for NHLBI-funded COVID-19 datasets.
-    In an effort to drive more impactful analyses, BioData Catalyst will be interoperable with other COVID-19 data resources.
+      BioData Catalyst is supporting data aggregation, rapid and broad access, and computation for NHLBI-funded COVID-19 datasets.
+      In an effort to drive more impactful analyses, BioData Catalyst will be interoperable with other COVID-19 data resources.
       </Paragraph>
 
       <Heading>Available COVID-19 Data</Heading>
@@ -35,9 +40,18 @@ const Covid19Page = () => {
         The filterable data table below provides metadata on the ORCHID study in the BioData Catalyst ecosystem. 
       </Paragraph>
 
-      <div style={{ textAlign: 'center' }}>
-        [DATA TABLE GOES HERE]
-      </div>
+      {
+        covidStudies && covidStudiesColumns && (
+          <DataTable
+            columns={ covidStudiesColumns }
+            data={ covidStudies }
+            expandableRows
+            expandableRowsComponent={ <CovidExpansionPanel columns={ covidStudiesColumns } /> }
+            highlightOnHover
+            dense
+          />
+        )
+      }
 
       <Heading>Accessing ORCHID Trial Data</Heading>
 
