@@ -63,21 +63,29 @@ const Covid19Page = () => {
         <ListItem
           primary="Request access to ORCHID study data"
         />
-        <ListItem
-          primary="Read the BioData Catalyst Ecosystem Overview document because it provides important information for new users and links to additional guidance and resources."
-        />
+        <ListItem primary={
+          <span>Read the BioData Catalyst Ecosystem <ExternalLink to="https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/">Overview document</ExternalLink> because it provides important information for new users and links to additional guidance and resources.</span>
+        } />
         <ListItem
           primary="Obtain or confirm you already have an eRA Commons account, the credentials for which will be used as part of the login process."
         />
-        <ListItem
-          primary="Refer to the Ecosystem Access, Hosted Data, and System Services section of the Overview document for login information."
-        />
+        <ListItem primary={
+          <span>
+            Refer to the Ecosystem Access, Hosted Data, and System Services section of the Overview document
+            for <ExternalLink to="https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/#ecosystem-access-hosted-data-and-system-services">login information</ExternalLink>.
+          </span>
+        } />
         <ListItem
           primary="Once you have approved dbGaP access for the ORCHID data, you may create accounts on our system workspaces to work with the ORCHID data in the Cloud."
         />
-        <ListItem
-          primary="Prepare for cloud storage costs (incurred from computation and storage of derived results) which may be paid via users’ Amazon and Google accounts. Cloud credits may be available for those conducting concrete heart, lung, blood, or sleep research. Visit the Cloud Credits webpage for more information. "
-        />
+        <ListItem primary={
+          <span>
+            Prepare for cloud storage costs (incurred from computation and storage of derived results) which may be paid via
+            users’ <ExternalLink to="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc">Amazon</ExternalLink> and &nbsp;
+            <ExternalLink to="https://cloud.google.com/free/?utm_source=google&utm_medium=cpc&utm_campaign=na-US-all-en-dr-SKWS-all-all-trial-b-dr-1009135&utm_content=text-ad-none-any-DEV_c-CRE_265893083938-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20BKWS%20%7C%20US%20%7C%20en%20%7C%20BMM%20~%20Google%20Cloud%20Free%20Tier-KWID_43700032443110077-kwd-326209943198&utm_term=KW_%2Bfree%20%2Bgoogle%20%2Bcloud-ST_%2Bfree%20%2Bgoogle%20%2Bcloud&gclid=CjwKCAiAz4b_BRBbEiwA5XlVVtvMK1vgUhmeGn4U0YiiGRlYUHeefMx0xvs_ot5mwkbNLe7ytcdefxoCebAQAvD_BwE">Google</ExternalLink> accounts.
+            Cloud credits may be available for those conducting concrete heart, lung, blood, or sleep research. Visit the Cloud Credits webpage for more information.
+          </span>
+      } />
       </List>
 
       <Paragraph>
