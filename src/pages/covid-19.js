@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'gatsby'
 import styled from 'styled-components'
 import { SEO } from '../components/seo'
 import { PageContent } from '../components/layout'
@@ -27,11 +28,11 @@ const Covid19Page = () => {
         which includes translational research, clinical trials, clinical epidemiology, and population science.
         The NHLBI will also leverage its cyberinfrastructure, namely the BioData Catalyst ecosystem,
         to help coordinate various data management needs among many of the COVID-19 efforts.
-      </Paragraph>
+     </Paragraph>
 
       <Paragraph>
-      BioData Catalyst is supporting data aggregation, rapid and broad access, and computation for NHLBI-funded COVID-19 datasets.
-      In an effort to drive more impactful analyses, BioData Catalyst will be interoperable with other COVID-19 data resources.
+        BioData Catalyst is supporting data aggregation, rapid and broad access, and computation for NHLBI-funded COVID-19 datasets.
+        In an effort to drive more impactful analyses, BioData Catalyst will be interoperable with other COVID-19 data resources.
       </Paragraph>
 
       <Heading>Available COVID-19 Data</Heading>
@@ -74,37 +75,65 @@ const Covid19Page = () => {
       <Heading>Getting Started on BioData Catalyst</Heading>
 
       <List ordered>
-        <ListItem
-          primary="Request access to ORCHID study data"
-        />
-        <ListItem primary={
-          <span>Read the BioData Catalyst Ecosystem <ExternalLink to="https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/">Overview document</ExternalLink> because it provides important information for new users and links to additional guidance and resources.</span>
-        } />
-        <ListItem
-          primary="Obtain or confirm you already have an eRA Commons account, the credentials for which will be used as part of the login process."
-        />
         <ListItem primary={
           <span>
-            Refer to the Ecosystem Access, Hosted Data, and System Services section of the Overview document
-            for <ExternalLink to="https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/#ecosystem-access-hosted-data-and-system-services">login information</ExternalLink>.
+            Obtain or confirm you already have an <ExternalLink to="https://era.nih.gov/eracommons-timeline.htm">eRA Commons account</ExternalLink>,
+            the credentials for which will be used as part of the login process.
           </span>
         } />
-        <ListItem
-          primary="Once you have approved dbGaP access for the ORCHID data, you may create accounts on our system workspaces to work with the ORCHID data in the Cloud."
-        />
+        <ListItem primary={
+          <div>
+            Request dbGaP access to ORCHID study data by: <br /><br />
+            <List>
+              <ListItem primary={
+                <span>
+                  (a) Going to the <ExternalLink to="https://dbgap.ncbi.nlm.nih.gov/aa/wga.cgi?page=login">controlled-access login page for dbGaP</ExternalLink> and clicking on the "Login" link on the upper right right side of the page. 
+                </span>
+              }/>
+              <ListItem primary={
+                <span>
+                  (b) Entering your eRA Commons credentials (first time dbGaP requestors will be asked for additional information).
+                </span>
+              }/>
+              <ListItem primary={
+                <span>
+                  (c) Clicking on the “my projects” tab and then the link for new data requests, where you will be asked to complete the 424 (R&R)
+                </span>
+              }/>
+            </List>
+          </div>
+        } />
+        <ListItem primary={
+          <span>
+            Read the BioData Catalyst Ecosystem <ExternalLink to="https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/">Overview document</ExternalLink> because it provides important information for new users and links to additional guidance and resources.
+          </span>
+        } />
+        <ListItem primary={
+          <span>
+            Identify your preferred workspace and platforms by considering the descriptions available on the <Link to="/resources/services">BioData Catalyst Services page</Link> and the documentation to which it links.
+          </span>
+        } />
         <ListItem primary={
           <span>
             Prepare for cloud storage costs (incurred from computation and storage of derived results) which may be paid via
             users’ <ExternalLink to="https://aws.amazon.com/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc">Amazon</ExternalLink> and &nbsp;
             <ExternalLink to="https://cloud.google.com/free/?utm_source=google&utm_medium=cpc&utm_campaign=na-US-all-en-dr-SKWS-all-all-trial-b-dr-1009135&utm_content=text-ad-none-any-DEV_c-CRE_265893083938-ADGP_Hybrid%20%7C%20AW%20SEM%20%7C%20BKWS%20%7C%20US%20%7C%20en%20%7C%20BMM%20~%20Google%20Cloud%20Free%20Tier-KWID_43700032443110077-kwd-326209943198&utm_term=KW_%2Bfree%20%2Bgoogle%20%2Bcloud-ST_%2Bfree%20%2Bgoogle%20%2Bcloud&gclid=CjwKCAiAz4b_BRBbEiwA5XlVVtvMK1vgUhmeGn4U0YiiGRlYUHeefMx0xvs_ot5mwkbNLe7ytcdefxoCebAQAvD_BwE">Google</ExternalLink> accounts.
-            Cloud credits may be available for those conducting concrete heart, lung, blood, or sleep research. Visit the Cloud Credits webpage for more information.
+            Cloud credits may be available for those conducting concrete heart, lung, blood, or sleep research.
+            Visit the <Link to="/resources/cloud-credits">Cloud Credits page</Link> for more information.
           </span>
-      } />
+        } />
+        <ListItem primary={
+          <span>
+            Once you have approved dbGaP access, you may set up accounts for your preferred workspace and platforms on the BioData Catalyst ecosystem to conduct your research.
+            Refer to the Ecosystem Access, Hosted Data, and System Services section of the Overview document
+            for <ExternalLink to="https://bdcatalyst.gitbook.io/biodata-catalyst-documentation/#ecosystem-access-hosted-data-and-system-services">login information</ExternalLink>.
+          </span>
+        }/>
       </List>
 
       <Paragraph>
         Researchers using ORCHID data may find helpful the reproducible code originally used by the ORCHID research team to arrive at their results.
-        It is available in BioData Catalyst Powered by PIC-SURE for which there is more information in a Jupyter notebook..
+        It is available in BioData Catalyst Powered by PIC-SURE for which <ExternalLink to="https://github.com/hms-dbmi/Access-to-Data-using-PIC-SURE-API/blob/master/NHLBI_BioData_Catalyst/R/ORCHID_COVID19.ipynb">there is more information in a Jupyter notebook</ExternalLink>.
       </Paragraph>
 
       <Heading>Related Resources</Heading>
@@ -119,3 +148,5 @@ const Covid19Page = () => {
 }
 
 export default Covid19Page
+
+

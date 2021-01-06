@@ -7,6 +7,10 @@ import styled from 'styled-components'
 export const OrderedList = styled.ol`
   line-height: ${ props => props.dense ? '1.0' : '1.5' };
   padding: 1rem;
+  // & > li::before {
+  //   content: counter(item, decimal) '. ';
+  //   counter-increment: item;
+  // }
 `
 
 export const UnorderedList = styled.ul`
@@ -70,17 +74,11 @@ ListItem.propTypes = {
 //
 
 export const List = ({ children, ordered, ...props }) => {
-  if (ordered) {
-    return (
-      <OrderedList { ...props }>
-        { children }
-      </OrderedList>
-    )
-  }
+  const ListComponent = ordered ? OrderedList : UnorderedList
   return (
-    <UnorderedList { ...props }>
+    <ListComponent { ...props }>
       { children }
-    </UnorderedList>
+    </ListComponent>
   )
 }
 
